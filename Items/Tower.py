@@ -1,4 +1,4 @@
-from philh_myftp_biz.classtools import clear_cache
+from philh_myftp_biz.functools import clear_cache
 from functools import cached_property
 from dataclasses import dataclass
 
