@@ -485,7 +485,7 @@ POWER RESTART  | Restart system
             for serv in Memory.Services:
                 if serv.logfile:
                     Printer.RunFile(serv.logfile)
-                    RunHidden(serv.logfile)
+                    RunHidden('code', serv.logfile)
 
     class explore(Branch):
 
