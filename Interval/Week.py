@@ -1,14 +1,18 @@
 from philh_myftp_biz.modules import Service
 from philh_myftp_biz.terminal import Log
 from philh_myftp_biz.pc import Path
+from itertools import chain
 from . import IS_SERVER
 
 # =================================================================================
 # HIDE ITEMS
 
 def paths():
-    yield from Path('C:/').descendants
-    yield from Path('E:/').descendants
+    yield from chain(
+        Path('C:/Scripts/').descendants,
+        Path('C:/Users/').descendants,
+        Path('E:/').descendants
+    )
 
 # Iter through all files on the 'C' and 'E' volumes
 for p in paths():
@@ -20,14 +24,15 @@ for p in paths():
     MANGLED  = SEG.startswith('__') and SEG.endswith('__') 
     ISDB     = SEG in ['.ds_store', 'thumbs.db', 'desktop.ini']
     RECYCLED = '/$recycle.bin/' in PATH
-    HIDDEN   = p.visibility.hidden()
+    HIDDEN   = p.visibility.hidden
+    CACHED   = p.is_file and ("/__pycache__/" in PATH)
 
     DO_HIDE = ((HASDOT or MANGLED) and (not HIDDEN))
-    DO_DEL  = (ISDB or RECYCLED)
+    DO_DEL  = (ISDB or RECYCLED or CACHED)
 
     Log.VERB(
         f'Scanning: {PATH}\n'+ \
-        f'{HASDOT=} | {MANGLED=} | {ISDB=} | {RECYCLED=} | {HIDDEN=}\n'+ \
+        f'{HASDOT=} | {MANGLED=} | {ISDB=} | {RECYCLED=} | {HIDDEN=} | {CACHED=}\n'+ \
         f'{DO_HIDE=} | {DO_DEL=}'
     )
 
