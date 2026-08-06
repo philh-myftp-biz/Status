@@ -1,5 +1,5 @@
 from ...Items import Services, Modules, HardDrives, PCIeCards, VirtualDisks, Towers
-from philh_myftp_biz.functools import force_types
+from philh_myftp_biz.functools.force_types import force_in_types
 
 class Branch:
 
@@ -43,14 +43,14 @@ class Memory:
 
 class Printer:
 
-    @force_types
+    @force_in_types
     def RunFile(
         path: str,
         args: tuple = ()
     ) -> None:
         print(f'Running: {path} {args}')
 
-    @force_types
+    @force_in_types
     def Error(
         name: str,
         mess: str = ''
