@@ -13,7 +13,7 @@
 <br>
 
 3. Activate Scheduled Tasks \
-    TODO
+    `& "C:\Scripts\schtasks\install.ps1"`
 
 ---
 ### Configuration
