@@ -9,7 +9,7 @@
 <br>
 
 2. Add Console Profile to Windows Terminal \
-    TODO
+    `& "C:\Scripts\Utils\Console\install.ps1"`
 <br>
 
 3. Activate Scheduled Tasks \
