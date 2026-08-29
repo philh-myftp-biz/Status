@@ -1,6 +1,6 @@
 [submodule "lib/msys2"]
 	path = lib/msys2
-	url = https://github.com/MineFartS/MSYS2
+	url = https://github.com/MineFartsEmbed/MSYS2
     ignore = all
 
 [submodule "lib/json"]
@@ -17,5 +17,5 @@
 
 [submodule "lib/python314"]
 	path = lib/python314
-	url = https://github.com/MineFartS/python-embed
+	url = https://github.com/MineFartsEmbed/Python
     ignore = all
