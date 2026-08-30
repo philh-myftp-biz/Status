@@ -1,52 +1,27 @@
 from .. import install # Run install.py
 
 from subprocess import run
-import os, sys
+from os.path import exists
 
 lib = 'C:/Scripts/lib'
 pyd = 'C:/Scripts/Items/_cpp.pyd'
 
-os.add_dll_directory(f'{lib}/msys2/ucrt64/bin')
-
 #==========================================================
 # BUILD
 
-if not os.path.exists(pyd):
+if not exists(pyd):
 
-    run(
-        args = ['git', 'submodule', 'update', '--init', '--recursive', '--remote'],
-        cwd = "C:/Scripts/"
-    )
-
-    run(
-        args = [
-            'cmd', '/c', 'g++.exe', '-v',
-            '-O3', '-shared', '-std=c++17', '-fPIC',
-            f'-I{lib}/python314/include',
-            f'-I{lib}/pybind11/include',
-            f'-I{lib}/json/include',
-            f'-I{lib}/pyobj',
-            f'-L{lib}/python314/libs',
-            f"{lib}/pyobj/main.cpp",
-            '-o', pyd,
-            '-lpython314',
-            '-lsetupapi',
-            '-lcfgmgr32'
-        ],
-        cwd = f"{lib}/msys2/ucrt64/bin/"
-    )
-
-#==========================================================
-# STUBGEN
-
-if not os.path.exists('C:/Scripts/Items/_cpp.pyi'):
+    #run(
+    #    args = ['git', 'submodule', 'update', '--init', '--recursive', '--remote'],
+    #    cwd = "C:/Scripts/"
+    #)
     
-    sys.path.append('C:/Scripts/Items/')
-    from pybind11_stubgen import main
-    main(['_cpp', '--output-dir', 'C:/Scripts/Items/'])
-
-if '_cpp' in sys.modules:
-    sys.modules[f"{__name__}._cpp"] = sys.modules['_cpp']
+    run([
+        'Powershell.exe', '-File', f'{lib}/pybind/build.ps1',
+        '-Src', f"{lib}/pyobj/main.cpp",
+        '-Dst', pyd,
+        '-Include', f"{lib}/json/include"
+    ])
 
 #==========================================================
 # SCAN ITEMS

@@ -1,21 +1,11 @@
-[submodule "lib/msys2"]
-	path = lib/msys2
-	url = https://github.com/MineFartsEmbed/MSYS2
-    ignore = all
-
 [submodule "lib/json"]
 	path = lib/json
 	url = https://github.com/nlohmann/json
 	branch = develop
     ignore = all
 
-[submodule "lib/pybind11"]
-	path = lib/pybind11
-	url = https://github.com/pybind/pybind11
-	branch = stable
+[submodule "lib/pybind"]
+	path = lib/pybind
+	url = https://github.com/MineFartS/pybind
     ignore = all
 
-[submodule "lib/python314"]
-	path = lib/python314
-	url = https://github.com/MineFartsEmbed/Python
-    ignore = all

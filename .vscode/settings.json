@@ -3,9 +3,8 @@
         ".vscode": true,
         "**/__pycache__": true,
         "**/*.pyd": true,
+        "**/*.pyi": true,
         "lib/json": true,
-        "lib/msys2": true,
-        "lib/pybind11": true,
-        "lib/python314": true
+        "lib/pybind": true
     }
 }
