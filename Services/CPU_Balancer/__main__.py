@@ -1,5 +1,5 @@
 from philh_myftp_biz.process.SysTask import rscan
-from philh_myftp_biz.terminal import Log, cls
+from philh_myftp_biz.terminal import Log
 from philh_myftp_biz.pc import loc
 from time import sleep
 from os import getpid
@@ -9,9 +9,7 @@ with loc.cache.child('PID.txt').open('w') as f:
 
 while True:
 
-    cls()
-
-    for process in rscan(writeable=True):
+    for process in rscan(mutable=True):
 
         Log.INFO(f'{process.name()=}')
         process.cpu_limit(50)

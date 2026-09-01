@@ -9,19 +9,12 @@ pyd = 'C:/Scripts/Items/_cpp.pyd'
 #==========================================================
 # BUILD
 
-if not exists(pyd):
-
-    #run(
-    #    args = ['git', 'submodule', 'update', '--init', '--recursive', '--remote'],
-    #    cwd = "C:/Scripts/"
-    #)
-    
-    run([
-        'Powershell.exe', '-File', f'{lib}/pybind/build.ps1',
-        '-Src', f"{lib}/pyobj/main.cpp",
-        '-Dst', pyd,
-        '-Include', f"{lib}/json/include"
-    ])
+exists(pyd) or run([
+    'Powershell.exe', '-File', f'{lib}/pybind/build.ps1',
+    '-Src', f"{lib}/pyobj/main.cpp",
+    '-Dst', pyd,
+    '-Include', f"{lib}/json/include"
+])
 
 #==========================================================
 # SCAN ITEMS
@@ -75,7 +68,7 @@ for disk in WMI().Win32_DiskDrive():
 
 Services: list[Service] = getItems('Services')
 
-Services += [Service(d) for d in Path('C:/Scripts/Services/').children if d.is_dir]
+Services += [Service(d) for d in Path('C:/Scripts/Services/').children if d.is_dir and d.name[0]!='_']
 
 #=============
 

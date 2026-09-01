@@ -103,9 +103,7 @@ else:
         Log.VERB(f'Installing Module: {mod}')
 
         # Install/Update all dependencies
-        mod.install(
-            show = VERBOSE
-        )
+        mod.install(show=VERBOSE)
 
     #==============
     # Services
@@ -118,8 +116,9 @@ else:
             service.start()
 
     #==============
-    if main_repo:
-        main_repo.update_submodules()
+
+    main_repo and main_repo.update_submodules(force=True)
+
     #==============
 
 # ===============================================================================================================
