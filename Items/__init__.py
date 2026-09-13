@@ -29,60 +29,54 @@ from ._cpp import HardDrive, PCIeCard, VirtualDisk
 from .Service import Service
 from .Tower import Tower
 
-def getItems(file:str) -> list:    
+VirtualDisks: list[VirtualDisk]
+HardDrives: list[HardDrive]
+PCIeCards: list[PCIeCard]
+Services: list[Service]
+Modules: list[Module]
+Towers: list[Tower]
 
-    Log.VERB(f'Collecting Items: {file}')
+_cache = {}
 
-    dirname = NAME.replace('-', '')
+def __getattr__(name:str):
+
+    if name in _cache:
+        return _cache[name]
+
+    Log.VERB(f'Collecting Items: {name}')
 
     try:
-    
-        return import_module(
-            name = f'.{dirname}.{file}', 
+        items: list = import_module(
+            name = f'.{NAME.replace('-', '')}.{name}', 
             package = __name__
-        ).Items
-    
+        ).Items.copy()
     except ModuleNotFoundError:
-        return []
+        items = []
 
-#=============
+    match name:
 
-HardDrives: list[HardDrive] = getItems('HardDrives')
+        case 'HardDrives':
+            for disk in WMI().Win32_DiskDrive():
 
-for disk in WMI().Win32_DiskDrive():
+                sn: str = disk.SerialNumber.strip()
+                _not_exists = not any(i.SN==sn for i in items)
+                _valid_sn = not sn.startswith('{')
 
-    sn: str = disk.SerialNumber.strip()
+                if _not_exists and _valid_sn: 
+                    items += [HardDrive(
+                        Tower = '?',
+                        Conn = '?',
+                        ID = 0,
+                        SN = sn
+                    )]
 
-    if not any ([ 
-        sn.startswith('{'),
-        *((i.SN == sn) for i in HardDrives)
-    ]):
-        HardDrives += [HardDrive(
-            Tower = '?',
-            Conn = '?',
-            ID = 0,
-            SN = sn
-        )]
+        case 'Services':
+            _dir = Path('C:/Scripts/Services/')
+            items += [Service(d) for d in _dir.children if d.is_dir and d.name[0]!='_']
 
-#=============
+        case 'Modules':
+            items.insert(0, Module('C:/Scripts/'))
 
-Services: list[Service] = getItems('Services')
-
-Services += [Service(d) for d in Path('C:/Scripts/Services/').children if d.is_dir and d.name[0]!='_']
-
-#=============
-
-Modules: list[Module] = []
-Modules += [Module('C:/Scripts/')]
-Modules += getItems('Modules')
-
-#=============
-
-PCIeCards: list[PCIeCard] = getItems('PCIeCards')
-
-Towers: list[Tower] = getItems('Towers')
-
-VirtualDisks: list[VirtualDisk] = getItems('VirtualDisks')
-
-#==========================================================
+    _cache[name] = items
+    return items
 
