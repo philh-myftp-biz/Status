@@ -19,15 +19,13 @@ exists(pyd) or run([
 #==========================================================
 # SCAN ITEMS
 
-from philh_myftp_biz.modules import Module
 from philh_myftp_biz.pc import NAME, Path
 from philh_myftp_biz.terminal import Log
 from importlib import import_module
 from wmi import WMI
 
 from ._cpp import HardDrive, PCIeCard, VirtualDisk
-from .Service import Service
-from .Tower import Tower
+from ._py import Module, Service, Tower
 
 VirtualDisks: list[VirtualDisk]
 HardDrives: list[HardDrive]
