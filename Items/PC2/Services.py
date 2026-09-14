@@ -1,4 +1,4 @@
-from ..Service import Service
+from .. import Service
 
 Items = [
 

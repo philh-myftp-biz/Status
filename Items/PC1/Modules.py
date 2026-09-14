@@ -1,4 +1,4 @@
-from .._py import Module
+from .. import Module
 
 Items = [
 
