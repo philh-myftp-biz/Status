@@ -1,33 +1,11 @@
-from philh_myftp_biz.modules import Service as __Service
-from philh_myftp_biz.modules import Module as __Module
-from philh_myftp_biz.functools import clear_cache
+from philh_myftp_biz.pc.hardware import Device
 from functools import cached_property
-from dataclasses import dataclass
 
-class Module(__Module):
+class Tower(Device):
 
-    @cached_property
-    def Name(self) -> str:
-        return self.path
-    
-    @property
-    def Connected(self) -> bool:
-        return self.exists
-
-class Service(__Service):
-
-    @cached_property
-    def Name(self) -> str:
-        return self.path
-    
-    @property
-    def Connected(self) -> bool:
-        return self.running
-
-@dataclass
-class Tower:
-
-    ID: str
+    def __init__(self, ID:str) -> None:
+        super().__init__()
+        self.ID = ID
 
     @cached_property
     def Name(self) -> str:
@@ -36,8 +14,6 @@ class Tower:
     @cached_property
     def Connected(self) -> bool:
         from .__init__ import HardDrives
-
-        clear_cache(self)
 
         _HardDrives = filter(
             lambda hdd: (hdd.Tower == self.ID),
@@ -50,3 +26,4 @@ class Tower:
         )
 
         return next(_HardDrives, None) != None
+

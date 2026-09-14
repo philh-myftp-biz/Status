@@ -1,31 +1,13 @@
 from .. import install # Run install.py
 
-from subprocess import run
-from os.path import exists
-
-lib = 'C:/Scripts/lib'
-pyd = 'C:/Scripts/Items/_cpp.pyd'
-
-#==========================================================
-# BUILD
-
-exists(pyd) or run([
-    'Powershell.exe', '-File', f'{lib}/pybind/build.ps1',
-    '-Src', f"{lib}/pyobj/main.cpp",
-    '-Dst', pyd,
-    '-Include', f"{lib}/json/include"
-])
-
-#==========================================================
-# SCAN ITEMS
-
 from philh_myftp_biz.pc import NAME, Path
 from philh_myftp_biz.terminal import Log
 from importlib import import_module
 from wmi import WMI
 
-from ._cpp import HardDrive, PCIeCard, VirtualDisk
-from ._py import Module, Service, Tower
+from philh_myftp_biz.pc.hardware import HardDrive, PCIeCard, VirtualDisk
+from philh_myftp_biz.modules import Module, Service
+from ._py import Tower
 
 VirtualDisks: list[VirtualDisk]
 HardDrives: list[HardDrive]
