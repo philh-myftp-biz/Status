@@ -1,4 +1,4 @@
-from .. import Module
+from philh_myftp_biz.modules import Module
 
 Items = [
 

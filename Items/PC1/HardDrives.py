@@ -1,4 +1,4 @@
-from .. import HardDrive
+from philh_myftp_biz.pc.hardware import HardDrive
 
 Items: list[HardDrive] = [
 
