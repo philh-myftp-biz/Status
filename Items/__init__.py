@@ -3,11 +3,12 @@ from .. import install # Run install.py
 from philh_myftp_biz.pc import NAME, Path
 from philh_myftp_biz.terminal import Log
 from importlib import import_module
+from typing import TYPE_CHECKING
 from wmi import WMI
 
 from philh_myftp_biz.pc.hardware import HardDrive, PCIeCard, VirtualDisk
 from philh_myftp_biz.modules import Module, Service
-from ._py import Tower
+if TYPE_CHECKING: from ._py import Tower
 
 VirtualDisks: list[VirtualDisk]
 HardDrives: list[HardDrive]

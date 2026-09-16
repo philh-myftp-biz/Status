@@ -1,4 +1,4 @@
-from philh_myftp_biz.pc.hardware import Device
+from philh_myftp_biz.pc.hardware import HardDrive, Device
 from functools import cached_property
 
 class Tower(Device):
@@ -13,7 +13,8 @@ class Tower(Device):
 
     @cached_property
     def Connected(self) -> bool:
-        from .__init__ import HardDrives
+        from . import _cache
+        HardDrives: list[HardDrive] = _cache['HardDrives']
 
         _HardDrives = filter(
             lambda hdd: (hdd.Tower == self.ID),
