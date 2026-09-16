@@ -4,7 +4,6 @@ from philh_myftp_biz.pc import NAME, Path
 from philh_myftp_biz.terminal import Log
 from importlib import import_module
 from typing import TYPE_CHECKING
-from wmi import WMI
 
 from philh_myftp_biz.pc.hardware import HardDrive, PCIeCard, VirtualDisk
 from philh_myftp_biz.modules import Module, Service
@@ -37,19 +36,10 @@ def __getattr__(name:str):
     match name:
 
         case 'HardDrives':
-            for disk in WMI().Win32_DiskDrive():
-
-                sn: str = disk.SerialNumber.strip()
-                _not_exists = not any(i.SN==sn for i in items)
-                _valid_sn = not sn.startswith('{')
-
-                if _not_exists and _valid_sn: 
-                    items += [HardDrive(
-                        Tower = '?',
-                        Conn = '?',
-                        ID = 0,
-                        SN = sn
-                    )]
+            items += filter(
+                lambda d: not any(i.SN==d.SN for i in items),
+                HardDrive.search()
+            )
 
         case 'Services':
             _dir = Path('C:/Scripts/Services/')

@@ -1,14 +1,12 @@
 
 try:
-    import philh_myftp_biz, wmi # pyright: ignore[reportUnusedImport]
+    import philh_myftp_biz # pyright: ignore[reportUnusedImport]
 
 except ModuleNotFoundError:
     from subprocess import run
     from . import pip
 
     pip('install', '-U', 'git+https://github.com/MineFartS/Server-PythonPackage.git')
-
-    pip('install', 'wmi')
 
     run(
         args = ['git', 'submodule', 'update', '--init', '--recursive', '--remote'],
