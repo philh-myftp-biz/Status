@@ -14,7 +14,7 @@ HardDrives: list[HardDrive]
 PCIeCards: list[PCIeCard]
 Services: list[Service]
 Modules: list[Module]
-Towers: list[Tower]
+Towers: list['Tower']
 
 _cache = {}
 
