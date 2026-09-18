@@ -2,6 +2,9 @@ from philh_myftp_biz.pc.hardware import HardDrive
 
 Items: list[HardDrive] = [
 
+    #=============================================================
+    # Tower A
+
     HardDrive(
         Tower = 'A',
         Conn = 'SATA',
@@ -9,19 +12,19 @@ Items: list[HardDrive] = [
         SN = 'PBEHHBB250616011613'
     ),
 
-    HardDrive(
-        Tower = 'A',
-        Conn = 'SATA',
-        ID = 2,
-        SN = ''
-    ),
+    #HardDrive(
+    #    Tower = 'A',
+    #    Conn = 'SATA',
+    #    ID = 2,
+    #    SN = ''
+    #),
 
-    HardDrive(
-        Tower = 'A',
-        Conn = 'SATA',
-        ID = 3,
-        SN = ''
-    ),
+    #HardDrive(
+    #    Tower = 'A',
+    #    Conn = 'SATA',
+    #    ID = 3,
+    #    SN = ''
+    #),
 
     HardDrive(
         Tower = 'A',
@@ -34,7 +37,7 @@ Items: list[HardDrive] = [
         Tower = 'A',
         Conn = 'SATA',
         ID = 5,
-        SN = ''
+        SN = 'V8H6T9ZR'
     ),
 
     HardDrive(
@@ -48,7 +51,7 @@ Items: list[HardDrive] = [
         Tower = 'A',
         Conn = 'SATA',
         ID = 7,
-        SN = ''
+        SN = 'Z5M3K0R6FUUB'
     ),
 
     HardDrive(
@@ -57,6 +60,9 @@ Items: list[HardDrive] = [
         ID = 8,
         SN = '134605400828'
     ),
+
+    #=============================================================
+    # Tower B
 
     HardDrive(
         Tower = 'B',
@@ -72,19 +78,19 @@ Items: list[HardDrive] = [
         SN = 'YHKPSRSA'
     ),
 
-    HardDrive(
-        Tower = 'B',
-        Conn = 'SATA',
-        ID = 3,
-        SN = ''
-    ),
+    #HardDrive(
+    #    Tower = 'B',
+    #    Conn = 'SATA',
+    #    ID = 3,
+    #    SN = 'WXG2A70DPXK5'
+    #),
 
-    HardDrive(
-        Tower = 'B',
-        Conn = 'SATA',
-        ID = 4,
-        SN = ''
-    ),
+    #HardDrive(
+    #    Tower = 'B',
+    #    Conn = 'SATA',
+    #    ID = 4,
+    #    SN = ''
+    #),
 
     HardDrive(
         Tower = 'B',
@@ -100,11 +106,14 @@ Items: list[HardDrive] = [
         SN = 'YHHPB2LA'
     ),
 
+    #=============================================================
+    # Tower C
+
     HardDrive(
         Tower = 'C',
         Conn = 'SATA',
         ID = 1,
-        SN = ''
+        SN = 'Z5H1K13BFUUB'
     ),
 
     HardDrive(
@@ -135,33 +144,38 @@ Items: list[HardDrive] = [
         SN = 'QNVZGLRX'
     ),
 
-    HardDrive(
-        Tower = 'C',
-        Conn = 'SATA',
-        ID = 6,
-        SN = ''
-    ),
+    #HardDrive(
+    #    Tower = 'C',
+    #    Conn = 'SATA',
+    #    ID = 6,
+    #    SN = ''
+    #),
 
-    HardDrive(
-        Tower = 'C',
-        Conn = 'SATA',
-        ID = 7,
-        SN = ''
-    ),
+    #HardDrive(
+    #    Tower = 'C',
+    #    Conn = 'SATA',
+    #    ID = 7,
+    #    SN = ''
+    #),
 
-    HardDrive(
-        Tower = 'EXT',
-        Conn = 'USB',
-        ID = 1,
-        SN = 'WXK2E20DRV19'
-    ),
+    #=============================================================
+    # External
 
-    HardDrive(
-        Tower = 'EXT',
-        Conn = 'USB',
-        ID = 2,
-        SN = '2100120608000000'
-    )
+    #HardDrive(
+    #    Tower = 'EXT',
+    #    Conn = 'USB',
+    #    ID = 1,
+    #    SN = 'WXK2E20DRV19'
+    #),
+
+    #HardDrive(
+    #    Tower = 'EXT',
+    #    Conn = 'USB',
+    #    ID = 2,
+    #    SN = '2100120608000000'
+    #)
+
+    #=============================================================
 
 ]
 
