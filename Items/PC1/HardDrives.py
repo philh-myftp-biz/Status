@@ -54,12 +54,12 @@ Items: list[HardDrive] = [
     #    SN = ''
     #),
 
-    HardDrive(
-        Tower = 'A',
-        Conn = 'SATA',
-        ID = 8,
-        SN = '134605400828'
-    ),
+    #HardDrive(
+    #    Tower = 'A',
+    #    Conn = 'SATA',
+    #    ID = 8,
+    #    SN = '134605400828'
+    #),
 
     #=============================================================
     # Tower B
