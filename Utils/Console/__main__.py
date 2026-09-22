@@ -132,7 +132,7 @@ POWER RESTART  | Restart system
         Modules[0].run(
             'vbs/run', script.title(), 
             'True', # VISIBLE
-            ('-v' in args) # VERBOSE
+            *args
         )
 
     class select:

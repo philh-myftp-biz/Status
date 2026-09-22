@@ -23,14 +23,10 @@ end if
 '=======================================================
 ' VERBOSE [POSITIONAL ARG]
 
-if WScript.Arguments.Count = 3 then
-    Verbose = CBool(WScript.Arguments(2))
-else
-    Verbose = False
-end if
-
-if Verbose then
-    CMD = CMD & " -v"
+If WScript.Arguments.Count > 2 Then
+    For i = 2 To WScript.Arguments.Count - 1
+        CMD = CMD & " " & Chr(34) & WScript.Arguments(i) & Chr(34)
+    Next
 end if
 
 '=======================================================
