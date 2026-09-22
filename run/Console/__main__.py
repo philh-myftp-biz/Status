@@ -77,17 +77,16 @@ DISABLE SERVICE | Disable the selected services
 """
             
         run = """
-RUN *SCRIPT*    | Run a script in a new tab (Ex: run Interval.Startup)
-RUN *SCRIPT* -v | Run a script in a new tab [VERBOSE] (Ex: run Interval.Startup -v)
+RUN *SCRIPT* [...]  | Run a script in a new tab (Ex: run Startup [...])
 
 SCRIPTS:
-    - Utils.Update
-    - Utils.Status
-    - Utils.Console
-    - Interval.Hour
-    - Interval.Day
-    - Interval.Week
-    - Interval.Startup
+    - Update  | Update 'philh_myftp_biz' python package
+    - Status  | Open System Status Viewer
+    - Console | Open Console Session
+    - Hour    | Scheduled Hourly
+    - Day     | Scheduled Daily
+    - Week    | Scheduled Weekly
+    - Startup | Runs at Startup
 """
             
         args = """
@@ -125,7 +124,7 @@ POWER RESTART  | Restart system
         from ...Items import Modules
 
         Printer.RunFile(
-            path = f"C:/Scripts/{script.replace('.', '/')}.py",
+            path = f"C:/Scripts/run/{script}.py",
             args = args
         )
         

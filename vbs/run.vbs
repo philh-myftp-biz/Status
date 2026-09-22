@@ -9,7 +9,7 @@
 '=======================================================
 
 ' Get Method Name from first arguement
-CMD = "python.exe -m Scripts." & WScript.Arguments(0)
+CMD = "python.exe -m Scripts.run." & WScript.Arguments(0)
 
 '=======================================================
 ' VISIBLE [POSITIONAL ARG]

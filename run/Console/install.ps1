@@ -2,7 +2,7 @@
 $profileData = @{
     profiles = @(
         [PSCustomObject]@{
-            commandline       = "python -m Scripts.Utils.Console"
+            commandline       = "python -m Scripts.run.Console"
             elevate           = $false
             guid              = "{43e925b0-daa4-4138-ab4a-fc706c9b2a50}"
             hidden            = $false
