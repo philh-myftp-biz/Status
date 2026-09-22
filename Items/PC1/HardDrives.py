@@ -109,12 +109,12 @@ Items: list[HardDrive] = [
     #=============================================================
     # Tower C
 
-    #HardDrive(
-    #    Tower = 'C',
-    #    Conn = 'SATA',
-    #    ID = 1,
-    #    SN = ''
-    #),
+    HardDrive(
+        Tower = 'C',
+        Conn = 'SATA',
+        ID = 1,
+        SN = 'ZR11FS39'
+    ),
 
     #HardDrive(
     #    Tower = 'C',
@@ -148,7 +148,7 @@ Items: list[HardDrive] = [
         Tower = 'C',
         Conn = 'SATA',
         ID = 6,
-        SN = 'V8J0E15R'
+        SN = 'YHJSRMYA'
     ),
 
     HardDrive(
