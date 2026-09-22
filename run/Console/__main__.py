@@ -83,6 +83,7 @@ SCRIPTS:
     - Update  | Update 'philh_myftp_biz' python package
     - Status  | Open System Status Viewer
     - Console | Open Console Session
+    - Api     | Call Items API
     - Hour    | Scheduled Hourly
     - Day     | Scheduled Daily
     - Week    | Scheduled Weekly
