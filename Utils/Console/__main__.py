@@ -32,7 +32,6 @@ LIST    | List items
 SELECT  | Select items
 START   | Start items
 STOP    | Stop items
-CHECK   | Get items' status
 ENABLE  | Enable items
 DISABLE | Disable items
 ARGS    | Set items' arguements
@@ -66,15 +65,6 @@ START SERVICE | Start the selected services
     
         stop = """
 STOP SERVICE | Stop the selected services
-"""
-
-        check = """
-CHECK SERVICE | Get the status of the selected services
-CHECK MODULE  | Get the status of the selected modules
-CHECK DISK    | Get the status of the selected hard drives
-CHECK VDISK   | Get the status of the selected virtual disks
-CHECK PCIE    | Get the status of the selected pcie cards
-CHECK TOWER   | Get the status of the selected towers
 """
             
         enable = """
@@ -144,63 +134,6 @@ POWER RESTART  | Restart system
             'True', # VISIBLE
             ('-v' in args) # VERBOSE
         )
-
-    class list:
-
-        @staticmethod
-        def _hardware(
-            src: list,
-            mem: list
-        ) -> None:
-            for dev in mem:  
-                printx(src.index(dev), dev.Name)
-
-        @staticmethod
-        def service() -> None:
-            from ...Items import Services
-            for serv in Memory.Services:
-                printx(
-                    Services.index(serv), 
-                    f'{serv.path} {serv.args}'
-                )
-
-        @staticmethod
-        def module() -> None:
-            from ...Items import Modules
-            for mod in Memory.Modules:
-                printx(Modules.index(mod), mod)
-
-        @staticmethod
-        def disk() -> None:
-            from ...Items import HardDrives
-            TreeImpl.list._hardware(
-                src = HardDrives,
-                mem = Memory.Disks
-            )
-
-        @staticmethod
-        def pcie() -> None:
-            from ...Items import PCIeCards
-            TreeImpl.list._hardware(
-                src = PCIeCards,
-                mem = Memory.PCIeCards
-            )
-
-        @staticmethod
-        def vdisk() -> None:
-            from ...Items import VirtualDisks
-            TreeImpl.list._hardware(
-                src = VirtualDisks,
-                mem = Memory.VDisks
-            )
-
-        @staticmethod
-        def tower() -> None:
-            from ...Items import Towers
-            TreeImpl.list._hardware(
-                src = Towers,
-                mem = Memory.Towers
-            )
 
     class select:
 
@@ -314,7 +247,7 @@ POWER RESTART  | Restart system
                 else:
                     Printer.Error('ServiceMissing', serv)
 
-    class check:
+    class list:
 
         @staticmethod
         def _hardware(
@@ -352,8 +285,7 @@ POWER RESTART  | Restart system
         @staticmethod
         def disk() -> None:
             from ...Items import HardDrives
-
-            TreeImpl.check._hardware(
+            TreeImpl.list._hardware(
                 src = HardDrives,
                 mem = Memory.Disks
             )
@@ -361,8 +293,7 @@ POWER RESTART  | Restart system
         @staticmethod
         def vdisk() -> None:
             from ...Items import VirtualDisks
-
-            TreeImpl.check._hardware(
+            TreeImpl.list._hardware(
                 src = VirtualDisks,
                 mem = Memory.VDisks
             )
@@ -370,8 +301,7 @@ POWER RESTART  | Restart system
         @staticmethod
         def pcie() -> None:
             from ...Items import PCIeCards
-
-            TreeImpl.check._hardware(
+            TreeImpl.list._hardware(
                 src = PCIeCards,
                 mem = Memory.PCIeCards
             )
@@ -379,8 +309,7 @@ POWER RESTART  | Restart system
         @staticmethod
         def tower() -> None:
             from ...Items import Towers
-
-            TreeImpl.check._hardware(
+            TreeImpl.list._hardware(
                 src = Towers,
                 mem = Memory.Towers
             )
@@ -412,7 +341,7 @@ POWER RESTART  | Restart system
 
                 serv.enable()
 
-            TreeImpl.check.service()
+            TreeImpl.list.service()
 
         @staticmethod
         def module() -> None:
@@ -432,7 +361,7 @@ POWER RESTART  | Restart system
 
                 serv.disable()
 
-            TreeImpl.check.service()
+            TreeImpl.list.service()
 
     class args:
 
