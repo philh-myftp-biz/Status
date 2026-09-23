@@ -116,47 +116,47 @@ Items: list[HardDrive] = [
         SN = 'ZR11FS39'
     ),
 
-    #HardDrive(
-    #    Tower = 'C',
-    #    Conn = 'SATA',
-    #    ID = 2,
-    #    SN = ''
-    #),
-
-    #HardDrive(
-    #    Tower = 'C',
-    #    Conn = 'SATA',
-    #    ID = 3,
-    #    SN = ''
-    #),
-
-    #HardDrive(
-    #    Tower = 'C',
-    #    Conn = 'SATA',
-    #    ID = 4,
-    #    SN = ''
-    #),
-    
     HardDrive(
         Tower = 'C',
         Conn = 'SATA',
-        ID = 5,
+        ID = 2,
         SN = 'Z992XWLF'
     ),
 
     HardDrive(
         Tower = 'C',
         Conn = 'SATA',
-        ID = 6,
+        ID = 3,
         SN = 'YHJSRMYA'
     ),
 
     HardDrive(
         Tower = 'C',
         Conn = 'SATA',
-        ID = 7,
+        ID = 4,
         SN = 'ZGY43H7A'
     ),
+    
+    #HardDrive(
+    #    Tower = 'C',
+    #    Conn = 'SATA',
+    #    ID = 5,
+    #    SN = ''
+    #),
+
+    #HardDrive(
+    #    Tower = 'C',
+    #    Conn = 'SATA',
+    #    ID = 6,
+    #    SN = ''
+    #),
+
+    #HardDrive(
+    #    Tower = 'C',
+    #    Conn = 'SATA',
+    #    ID = 7,
+    #    SN = ''
+    #),
 
     #=============================================================
     # External
