@@ -1,15 +1,15 @@
-from ..Items import VirtualDisks, HardDrives, Services, Modules, PCIeCards
 from philh_myftp_biz.web import FirewallException
 from philh_myftp_biz.process import SysTask
 from .. import alert, shutdown, main_repo
 from philh_myftp_biz.terminal import Log
 from philh_myftp_biz import VERBOSE
+from .. import Items
 
 # ===============================================================================================================
 
 Log.INFO('Checking for issues with PCIe Cards')
 
-if not all(c.Connected for c in PCIeCards):
+if not all(c.Connected for c in Items.PCIeCards):
     
     # Send alert
     alert('Restarting due to PCIe card error')
@@ -23,7 +23,7 @@ if not all(c.Connected for c in PCIeCards):
 Log.INFO('Processing Hard Drives')
 
 # Iter through Hard Drives
-for hdd in HardDrives:
+for hdd in Items.HardDrives:
 
     Log.VERB(
         f'Processing Hard Drive:\n'+ \
@@ -59,7 +59,7 @@ for hdd in HardDrives:
 Log.INFO('Processing Virtual Disks')
 
 # Iter through Virtual Disks
-for vdisk in VirtualDisks:
+for vdisk in Items.VirtualDisks:
 
     Log.VERB(
         f'Processing Virtual Disk:\n'+ \
@@ -83,7 +83,7 @@ FirewallException('SSH').set(22)
 SysTask("*NVDisplay*").stop()
 
 # If any virtual disks are missing
-if any(not d.Connected for d in VirtualDisks):
+if any(not d.Connected for d in Items.VirtualDisks):
 
     alert('Startup Failed: Virtual Disk Failure')
 
@@ -98,7 +98,7 @@ else:
     Log.INFO('Installing Modules')
 
     # Iter through all main modules
-    for mod in Modules:
+    for mod in Items.Modules:
 
         Log.VERB(f'Installing Module: {mod}')
 
@@ -111,7 +111,7 @@ else:
     Log.INFO('Starting Services')
 
     # Start All Services
-    for service in Services:
+    for service in Items.Services:
         if service.enabled:
             service.start()
 

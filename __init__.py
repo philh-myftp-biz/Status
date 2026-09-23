@@ -4,10 +4,10 @@ from philh_myftp_biz.terminal import Log
 from philh_myftp_biz.web import URL
 from philh_myftp_biz.pc import NAME
 from warnings import filterwarnings
-from .Items import Modules
 from typing import Literal
 from subprocess import run
 from sys import executable
+from . import Items
 
 filterwarnings("ignore", category=RuntimeWarning, message=".*found in sys.modules.*")
 
@@ -27,7 +27,7 @@ def shutdown(
 ) -> None:
 
     # Show Prompt to abort shutdown
-    Modules[0].start('vbs/abort')
+    Items.Modules[0].start('vbs/abort')
 
     # Restart the Server
     RunHidden(
@@ -41,7 +41,7 @@ def alert(msg:str) -> None:
     Log.MAIN(msg)
 
     # Show Alert Box
-    Modules[0].start('vbs/alert', msg)
+    Items.Modules[0].start('vbs/alert', msg)
 
     if IS_SERVER:
         url = URL("https://script.google.com/macros/s/AKfycby9Xe6d1WYiMMxyHJhK7KADTucfScyvDJa5SLBGuR9QqCwrx52dRhizI2d0UjiJY_NfAg/exec")
