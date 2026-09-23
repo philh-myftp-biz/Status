@@ -4,6 +4,7 @@ from philh_myftp_biz.terminal import Log
 from philh_myftp_biz.web import URL
 from philh_myftp_biz.pc import NAME
 from warnings import filterwarnings
+from .run.Api import get_data
 from typing import Literal
 from subprocess import run
 from sys import executable
@@ -36,6 +37,8 @@ def shutdown(
         '/t', t
     )
 
+_alert_url = URL("https://script.google.com/macros/s/AKfycbxLMSyiCEk5D2l7UmPUAzLVJ1BbGoRryuoiP718py2xJDD2fSM1GW4GDhuYqdHVH_EbtQ/exec")
+
 def alert(msg:str) -> None:
 
     Log.MAIN(msg)
@@ -44,6 +47,13 @@ def alert(msg:str) -> None:
     Items.Modules[0].start('vbs/alert', msg)
 
     if IS_SERVER:
-        url = URL("https://script.google.com/macros/s/AKfycby9Xe6d1WYiMMxyHJhK7KADTucfScyvDJa5SLBGuR9QqCwrx52dRhizI2d0UjiJY_NfAg/exec")
-        url.params = {'message': msg}
-        url.get()
+        _alert_url.copy(body = {
+            'message': msg,
+            'doAlert': False,
+            'items': get_data(
+                *Items.VirtualDisks,
+                *Items.HardDrives,
+                *Items.PCIeCards,
+            ),
+        }).post()
+
