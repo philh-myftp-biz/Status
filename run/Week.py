@@ -2,7 +2,7 @@ from philh_myftp_biz.modules import Service
 from philh_myftp_biz.terminal import Log
 from philh_myftp_biz.pc import Path
 from itertools import chain
-from . import IS_SERVER
+from .. import IS_SERVER
 
 # =================================================================================
 # HIDE ITEMS
