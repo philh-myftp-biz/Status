@@ -3,10 +3,13 @@ from philh_myftp_biz.modules import Repo
 from philh_myftp_biz.terminal import Log
 from philh_myftp_biz.web import URL
 from philh_myftp_biz.pc import NAME
+from warnings import filterwarnings
 from .Items import Modules
 from typing import Literal
 from subprocess import run
 from sys import executable
+
+filterwarnings("ignore", category=RuntimeWarning, message=".*found in sys.modules.*")
 
 IS_SERVER: bool = (NAME == 'PC-1')
 

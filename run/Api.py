@@ -1,26 +1,27 @@
 from philh_myftp_biz.pc.hardware import Device
 from philh_myftp_biz.terminal import Args
-from collections import defaultdict
 from json import dumps
 from .. import Items
 
-items: list[Device] = getattr(Items, Args[0])
+def _props(cls:type[Device]):
+    _dict = (cls.__dict__ | Device.__dict__)
+    return list(filter(
+        lambda k: not (k.startswith('_') or callable(_dict[k])),
+        _dict.keys()
+    ))
 
-cls = (items[0].__class__ if items else object).__dict__ | Device.__dict__
+def get_data(*items:list[Device]):
+    data = []
+    for item in items:
+        idata = {}
+        for prop in _props(item.__class__):
+            idata[prop] = getattr(item, prop)
+        data += [idata]
+    return data
 
-props = list(filter(
-    lambda k: not (k.startswith('_') or callable(cls[k])),
-    cls.keys()
-))
-
-data = defaultdict(dict)
-
-for item in items:
-    for prop in props:
-        data[item.Name][prop] = getattr(item, prop)
-
-print(dumps(
-    obj = data,
-    indent = 3
-))
+if __name__ == "__main__":
+    print(dumps(
+        obj = get_data(*getattr(Items, Args[0])),
+        indent = 3
+    ))
 
