@@ -12,33 +12,33 @@ Items: list[HardDrive] = [
         SN = 'PBEHHBB250616011613'
     ),
 
-    #HardDrive(
-    #    Tower = 'A',
-    #    Conn = 'SATA',
-    #    ID = 2,
-    #    SN = ''
-    #),
+    HardDrive(
+        Tower = 'A',
+        Conn = 'SATA',
+        ID = 2,
+        SN = 'Z992XWLF'
+    ),
 
-    #HardDrive(
-    #    Tower = 'A',
-    #    Conn = 'SATA',
-    #    ID = 3,
-    #    SN = ''
-    #),
+    HardDrive(
+        Tower = 'A',
+        Conn = 'SATA',
+        ID = 3,
+        SN = 'YHJSRMYA'
+    ),
 
-    #HardDrive(
-    #    Tower = 'A',
-    #    Conn = 'SATA',
-    #    ID = 4,
-    #    SN = ''
-    #),
+    HardDrive(
+        Tower = 'A',
+        Conn = 'SATA',
+        ID = 4,
+        SN = 'S3TCNC0M500604'
+    ),
 
-    #HardDrive(
-    #    Tower = 'A',
-    #    Conn = 'SATA',
-    #    ID = 5,
-    #    SN = ''
-    #),
+    HardDrive(
+        Tower = 'A',
+        Conn = 'SATA',
+        ID = 5,
+        SN = 'ZR11FS39'
+    ),
 
     HardDrive(
         Tower = 'A',
@@ -47,12 +47,12 @@ Items: list[HardDrive] = [
         SN = 'UGXVK01J7BANIX'
     ),
 
-    #HardDrive(
-    #    Tower = 'A',
-    #    Conn = 'SATA',
-    #    ID = 7,
-    #    SN = ''
-    #),
+    HardDrive(
+        Tower = 'A',
+        Conn = 'SATA',
+        ID = 7,
+        SN = 'ZGY43H7A'
+    ),
 
     #HardDrive(
     #    Tower = 'A',
@@ -109,33 +109,33 @@ Items: list[HardDrive] = [
     #=============================================================
     # Tower C
 
-    HardDrive(
-        Tower = 'C',
-        Conn = 'SATA',
-        ID = 1,
-        SN = 'ZR11FS39'
-    ),
+    #HardDrive(
+    #    Tower = 'C',
+    #    Conn = 'SATA',
+    #    ID = 1,
+    #    SN = ''
+    #),
 
-    HardDrive(
-        Tower = 'C',
-        Conn = 'SATA',
-        ID = 2,
-        SN = 'Z992XWLF'
-    ),
+    #HardDrive(
+    #    Tower = 'C',
+    #    Conn = 'SATA',
+    #    ID = 2,
+    #    SN = ''
+    #),
 
-    HardDrive(
-        Tower = 'C',
-        Conn = 'SATA',
-        ID = 3,
-        SN = 'YHJSRMYA'
-    ),
+    #HardDrive(
+    #    Tower = 'C',
+    #    Conn = 'SATA',
+    #    ID = 3,
+    #    SN = ''
+    #),
 
-    HardDrive(
-        Tower = 'C',
-        Conn = 'SATA',
-        ID = 4,
-        SN = 'ZGY43H7A'
-    ),
+    #HardDrive(
+    #    Tower = 'C',
+    #    Conn = 'SATA',
+    #    ID = 4,
+    #    SN = ''
+    #),
     
     #HardDrive(
     #    Tower = 'C',

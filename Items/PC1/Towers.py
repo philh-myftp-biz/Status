@@ -6,6 +6,6 @@ Items: list[Tower] = [
 
     Tower('B'),
 
-    Tower('C')
+    #Tower('C'),
 
 ]
