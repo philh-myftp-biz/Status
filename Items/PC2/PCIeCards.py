@@ -7,10 +7,25 @@ Items = [
         Lanes = 1,
     ),
 
-    PCIeCard(
-        Slot = 1, # 2
-        Lanes = 16,
-    )
+    #PCIeCard(
+    #    Slot = 1, # 2
+    #    Lanes = 16,
+    #),
+
+    #PCIeCard(
+    #    Slot = 2, # 3
+    #    Lanes = 4,
+    #),
+
+    #PCIeCard(
+    #    Slot = 3, # 4
+    #    Lanes = 16,
+    #),
+
+    #PCIeCard(
+    #    Slot = 4, # M.2
+    #    Lanes = 4,
+    #)
 
 ]
 
