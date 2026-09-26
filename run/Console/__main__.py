@@ -2,10 +2,8 @@ from ... import install # Run install.py
 
 from philh_myftp_biz.terminal.tree import Tree, Printer, run_tree
 from philh_myftp_biz.pc import Path
+from typing import Callable
 from . import Memory
-
-def printx(x:int, val:str) -> None:
-    print(f'{x:>2d}:', val)
 
 class TreeImpl(Tree):
     """
@@ -14,114 +12,25 @@ Phil's Server
 
 MANAGEMENT  CONSOLE
 """
-
-    class help:
-
-        _NoArgs = """
-HELP    | Show help message
-CLS     | Clear the terminal
-EXIT    | Exit the terminal
-
-RUN     | Run a script
-
-NAME    | Get Computer Name
-IP      | Get IP Address
-POWER   | Shutdown/Restart System
-
-LIST    | List items
-SELECT  | Select items
-START   | Start items
-STOP    | Stop items
-ENABLE  | Enable items
-DISABLE | Disable items
-ARGS    | Set items' arguements
-LOGS    | Open items' logs
-EXPLORE | Open items in file explorer
-"""
-
-        list = """
-LIST SERVICE      | Get a list of selected services
-LIST MODULE       | Get a list of selected modules
-LIST DISK         | Get a list of selected hard drives
-LIST VDISK        | Get a list of selected virtual disks
-LIST PCIE         | Get a list of selected pcie cards
-LIST TOWER        | Get a list of selected towers
-"""
-            
-        select = """
-SELECT SERVICE [...] | Select services (Ex: select service 1,3)
-SELECT MODULE  [...] | Select modules (Ex: select module ..5)
-SELECT DISK    [...] | Select hard drives
-SELECT VDISK   [...] | Select virtual disks
-SELECT PCIE    [...] | Select pcie cards
-SELECT TOWER   [...] | Select towers
-
-[...] -> ['#', '#..', '..#', '#..#', '#,#']
-"""
-            
-        start = """
-START SERVICE | Start the selected services
-"""
-    
-        stop = """
-STOP SERVICE | Stop the selected services
-"""
-            
-        enable = """
-ENABLE SERVICE | Enable the selected services
-ENABLE MODULE  | Setup dependencies for the selected modules
-"""
-            
-        disable = """
-DISABLE SERVICE | Disable the selected services
-"""
-            
-        run = """
-RUN *SCRIPT* [...]  | Run a script in a new tab (Ex: run Startup [...])
-
-SCRIPTS:
-    - Update  | Update 'philh_myftp_biz' python package
-    - Status  | Open System Status Viewer
-    - Console | Open Console Session
-    - Api     | Call Items API
-    - Hour    | Scheduled Hourly
-    - Day     | Scheduled Daily
-    - Week    | Scheduled Weekly
-    - Startup | Runs at Startup
-"""
-            
-        args = """
-ARGS SERVICE = *arg1* *arg2* ...   | Set the args for selected services
-"""
-
-        logs = """
-LOGS SERVICE | Open the logs for the selected services
-"""
-
-        explore = """
-EXPLORE SERVICE | Open the selected services in file explorer
-EXPLORE MODULE  | Open the selected modules in file explorer
-"""
-
-        name = """
-NAME   | Get the name of the current computer
-"""
-
-        ip = """
-IP LAN | Get the current local ip
-IP WAN | Get the current public ip
-"""
-
-        power = """
-POWER SHUTDOWN | Shutdown system
-POWER RESTART  | Restart system
-"""
-
+                   
     @staticmethod
     def run( 
         script: str,
         *args: str
     ) -> None:
+        """
+        Run a script in a new tab (Ex: run Startup [...])
+
+        SCRIPTS:
+        - Update  | Update 'philh_myftp_biz' python package
+        - Status  | Open System Status Viewer
+        - Console | Open Console Session
+        - Api     | Call Items API
+        - Hour    | Scheduled Hourly
+        - Day     | Scheduled Daily
+        - Week    | Scheduled Weekly
+        - Startup | Runs at Startup
+        """
         from ...Items import Modules
 
         Printer.RunFile(
@@ -136,6 +45,10 @@ POWER RESTART  | Restart system
         )
 
     class select:
+        """
+        Select items
+        [...] -> ['#', '#..', '..#', '#..#', '#,#']
+        """
 
         @staticmethod
         def _all(
@@ -158,6 +71,7 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def service(rslice:str) -> None:
+            """Select services (Ex: select service 1,3)"""
             from ...Items import Services
 
             TreeImpl.select._all(
@@ -170,6 +84,7 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def module(rslice:str) -> None:
+            """Select modules (Ex: select module ..5)"""
             from ...Items import Modules
 
             TreeImpl.select._all(
@@ -182,6 +97,7 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def disk(rslice:str) -> None:
+            """Select hard drives"""
             from ...Items import HardDrives
 
             TreeImpl.select._all(
@@ -194,6 +110,7 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def pcie(rslice:str) -> None:
+            """Select pcie cards"""
             from ...Items import PCIeCards
 
             TreeImpl.select._all(
@@ -206,6 +123,7 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def vdisk(rslice:str) -> None:
+            """Select virtual disks"""
             from ...Items import VirtualDisks
 
             TreeImpl.select._all(
@@ -218,6 +136,7 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def tower(rslice:str) -> None:
+            """Select towers"""
             from ...Items import Towers
 
             TreeImpl.select._all(
@@ -229,9 +148,11 @@ POWER RESTART  | Restart system
             TreeImpl.list.tower()
 
     class start:
+        """Start items"""
 
         @staticmethod
         def service() -> None:
+            """Start the selected services"""
             
             for serv in Memory.Services:
 
@@ -248,6 +169,7 @@ POWER RESTART  | Restart system
                     Printer.Error('ServiceMissing', serv)
 
     class list:
+        """List items"""
 
         @staticmethod
         def _hardware(
@@ -259,10 +181,11 @@ POWER RESTART  | Restart system
 
                 ACTIVE: str = (' Active ' if dev.Connected else 'Inactive')
 
-                printx(src.index(dev), f'[{ACTIVE}] {dev.Name}')
+                Printer.xitem(src.index(dev), f'[{ACTIVE}] {dev.Name}')
 
         @staticmethod
         def service() -> None:
+            """Get a list of selected services"""
             from ...Items import Services
 
             for serv in Memory.Services:
@@ -270,20 +193,22 @@ POWER RESTART  | Restart system
                 RUNNING: str = ('Running'  if serv.running else 'Stopped')
                 ENABLED: str = (' Enabled' if serv.enabled else 'Disabled')
 
-                printx(Services.index(serv), f'[{RUNNING}, {ENABLED}] {serv.path}')
+                Printer.xitem(Services.index(serv), f'[{RUNNING}, {ENABLED}] {serv.path}')
 
         @staticmethod
         def module() -> None:
+            """Get a list of selected modules"""
             from ...Items import Modules
 
             for mod in Memory.Modules:
 
                 EXISTS: str = (' Exists' if mod.exists else 'Missing')
 
-                printx(Modules.index(mod), f'[{EXISTS}] {mod.path}')
+                Printer.xitem(Modules.index(mod), f'[{EXISTS}] {mod.path}')
 
         @staticmethod
         def disk() -> None:
+            """Get a list of selected hard drives"""
             from ...Items import HardDrives
             TreeImpl.list._hardware(
                 src = HardDrives,
@@ -292,6 +217,7 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def vdisk() -> None:
+            """Get a list of selected virtual disks"""
             from ...Items import VirtualDisks
             TreeImpl.list._hardware(
                 src = VirtualDisks,
@@ -300,6 +226,7 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def pcie() -> None:
+            """Get a list of selected pcie cards"""
             from ...Items import PCIeCards
             TreeImpl.list._hardware(
                 src = PCIeCards,
@@ -308,6 +235,7 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def tower() -> None:
+            """Get a list of selected towers"""
             from ...Items import Towers
             TreeImpl.list._hardware(
                 src = Towers,
@@ -315,9 +243,11 @@ POWER RESTART  | Restart system
             )
 
     class stop:
+        """Stop items"""
 
         @staticmethod
         def service() -> None:
+            """Stop the selected services"""
 
             for serv in Memory.Services:
 
@@ -333,9 +263,11 @@ POWER RESTART  | Restart system
                     Printer.Error('ServiceMissing', serv)
 
     class enable:
+        """Enable items"""
 
         @staticmethod
         def service() -> None:
+            """Enable the selected services"""
 
             for serv in Memory.Services:
 
@@ -345,6 +277,7 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def module() -> None:
+            """Setup dependencies for the selected modules"""
 
             for mod in Memory.Modules:
 
@@ -353,9 +286,11 @@ POWER RESTART  | Restart system
                 mod.install(False)
 
     class disable:
+        """Disable items"""
 
         @staticmethod
         def service() -> None:
+            """Disable the selected services"""
 
             for serv in Memory.Services:
 
@@ -364,9 +299,11 @@ POWER RESTART  | Restart system
             TreeImpl.list.service()
 
     class args:
+        """Set items' arguements"""
 
         @staticmethod
         def service(_, *args:str) -> None:
+            """Set the args for selected services (ARGS SERVICE = *arg1* *arg2* ...)"""
 
             for serv in Memory.Services:
 
@@ -375,9 +312,11 @@ POWER RESTART  | Restart system
             TreeImpl.list.service()
 
     class logs:
+        """Open items' logs"""
 
         @staticmethod
         def service() -> None:
+            """Open the logs for the selected services"""
             from philh_myftp_biz.process import RunHidden
 
             for serv in Memory.Services:
@@ -386,6 +325,7 @@ POWER RESTART  | Restart system
                     RunHidden('code', serv.logfile)
 
     class explore:
+        """Open items in file explorer"""
 
         def _open(items:list[Path]) -> None:
             from philh_myftp_biz.process import RunHidden
@@ -396,33 +336,46 @@ POWER RESTART  | Restart system
 
         @staticmethod
         def service() -> None:
+            """Open the selected services in file explorer"""
             TreeImpl.explore._open(Memory.Services)
 
         @staticmethod
         def module() -> None:
+            """Open the selected modules in file explorer"""
             TreeImpl.explore._open(Memory.Modules)
 
     @staticmethod
     def name() -> None:
+        """Get the name of the current computer"""
         from philh_myftp_biz.pc import NAME
 
         print(f'\nPC Name: {NAME}')
 
     class ip:
+        """Get IP Address"""
 
         @staticmethod
         def lan() -> None:
+            """Get the current local ip"""
             from philh_myftp_biz.web import IP
 
             print(f'\nLocal IP: {IP.LAN}')
 
         @staticmethod
         def wan() -> None:
+            """Get the current public ip"""
             from philh_myftp_biz.web import IP
 
             print(f'\nPublic IP: {IP.WAN}')
 
     class power:
+        """Shutdown/Restart System"""
+
+        shutdown: Callable
+        """Shutdown system"""
+
+        restart: Callable
+        """Restart system"""
 
         def __getattribute__(self, name:str):
             from ...Interval import shutdown
