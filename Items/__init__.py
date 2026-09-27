@@ -27,7 +27,7 @@ def __getattr__(name:str):
 
     try:
         items: list = import_module(
-            name = f'.{NAME.replace('-', '')}.{name}', 
+            name = f'.sub.{NAME.replace('-', '')}.{name}', 
             package = __name__
         ).Items.copy()
     except ModuleNotFoundError:
