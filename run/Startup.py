@@ -56,6 +56,8 @@ for hdd in Items.HardDrives:
 
         hdd.Usage = 'Retired'
 
+        hdd.FriendlyName = "<Unknown Disk>"
+
 # ===============================================================================================================
 
 Log.INFO('Processing Virtual Disks')
