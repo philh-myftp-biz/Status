@@ -5,6 +5,8 @@ from philh_myftp_biz.terminal import Log
 from philh_myftp_biz import VERBOSE
 from .. import Items
 
+VERBOSE.enable()
+
 # ===============================================================================================================
 
 Log.INFO('Checking for issues with PCIe Cards')
