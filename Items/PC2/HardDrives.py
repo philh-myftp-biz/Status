@@ -5,35 +5,35 @@ Items: list[HardDrive] = [
     HardDrive(
         Tower = 'A',
         Conn = 'SATA',
-        ID = 1,
+        Slot = 1,
         SN = 'UGXVK01J7BAF9W'
     ),
 
     HardDrive(
         Tower = 'A',
         Conn = 'SATA',
-        ID = 2,
+        Slot = 2,
         SN = '5VJF6ZC3'
     ),
 
     HardDrive(
         Tower = 'A',
         Conn = 'SATA',
-        ID = 3,
+        Slot = 3,
         SN = '130917TE85134N0GAV9R'
     ),
 
     HardDrive(
         Tower = 'A',
         Conn = 'SATA',
-        ID = 4,
+        Slot = 4,
         SN = 'WD-WXH1E8518AK0'
     ),
 
     HardDrive(
         Tower = 'A',
         Conn = 'SATA',
-        ID = 5,
+        Slot = 5,
         SN = '222XT7S3T'
     )
 

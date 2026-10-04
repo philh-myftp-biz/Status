@@ -5,7 +5,7 @@ Items: list[HardDrive] = [
     HardDrive(
         Tower = 'A',
         Conn = 'PROP',
-        ID = 1,
+        Slot = 1,
         SN = 'FV903620W5QN579DX'
     )
 
