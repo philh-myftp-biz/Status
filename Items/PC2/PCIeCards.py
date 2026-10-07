@@ -5,6 +5,8 @@ Items = [
     PCIeCard(
         Slot = 0, # 1
         Lanes = 1,
+        VendorID = 6945,
+        DeviceID = 1554,
     ),
 
     #PCIeCard(
