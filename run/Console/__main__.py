@@ -378,8 +378,8 @@ MANAGEMENT  CONSOLE
         """Restart system"""
 
         def __getattribute__(self, name:str):
-            from ...Interval import shutdown
-            return lambda: shutdown(name[0])
+            from ... import shutdown
+            return lambda: shutdown(name[0], '30')
 
 #===========================================================================
 

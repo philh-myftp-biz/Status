@@ -13,11 +13,10 @@ Log.INFO('Checking for issues with PCIe Cards')
 
 if not all(c.Connected for c in Items.PCIeCards):
     
-    # Send alert
-    alert('Restarting due to PCIe card error')
+    alert('Restarting due to PCIe card error', items=False)
 
-    shutdown('r')
-    
+    shutdown('r', '30')
+
     exit()
 
 # ===============================================================================================================
@@ -89,12 +88,12 @@ SysTask("*NVDisplay*").stop()
 # If any virtual disks are missing
 if any(not d.Connected for d in Items.VirtualDisks):
 
-    alert('Startup Failed: Virtual Disk Failure')
+    alert('Startup Failed: Virtual Disk Failure', items=True)
 
 # If all mounts exist
 else:
 
-    alert('Startup Complete')
+    alert('Startup Complete', items=True)
 
     #==============
     # Modules

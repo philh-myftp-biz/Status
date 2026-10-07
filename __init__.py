@@ -1,4 +1,3 @@
-from philh_myftp_biz.process import RunHidden
 from philh_myftp_biz.modules import Repo
 from philh_myftp_biz.terminal import Log
 from philh_myftp_biz.web import URL
@@ -23,23 +22,23 @@ def pip(*args) -> None:
     run([executable, '-m', 'pip', *args])
 
 def shutdown(
-    mode: Literal['s', 'r'],
-    t: int = 30
+    m: Literal['s', 'r'],
+    t: str,
 ) -> None:
 
     # Show Prompt to abort shutdown
     Items.Modules[0].start('vbs/abort')
 
     # Restart the Server
-    RunHidden(
+    run([
         'shutdown',
-        f'/{mode}',
+        '/'+m,
         '/t', t
-    )
+    ])
 
 _alert_url = URL("https://script.google.com/macros/s/AKfycbxLMSyiCEk5D2l7UmPUAzLVJ1BbGoRryuoiP718py2xJDD2fSM1GW4GDhuYqdHVH_EbtQ/exec")
 
-def alert(msg:str) -> None:
+def alert(msg:str, items:bool) -> None:
 
     Log.MAIN(msg)
 
@@ -47,13 +46,18 @@ def alert(msg:str) -> None:
     Items.Modules[0].start('vbs/alert', msg)
 
     if IS_SERVER:
-        _alert_url.copy(body = {
+
+        body = {
             'message': msg,
             'doAlert': False,
-            'items': get_data(
+        }
+
+        if items:
+            body['items'] = get_data(
                 *Items.VirtualDisks,
                 *Items.HardDrives,
                 *Items.PCIeCards,
-            ),
-        }).post()
+            )
+
+        _alert_url.copy(body=body).post()
 
