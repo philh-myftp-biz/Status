@@ -8,7 +8,6 @@ from typing import TYPE_CHECKING
 from philh_myftp_biz.pc.hardware import HardDrive, PCIeCard, VirtualDisk
 from philh_myftp_biz.modules import Module, Service
 if TYPE_CHECKING: from ._py import Tower
-from philh_myftp_biz.pc import hardware
 
 VirtualDisks: list[VirtualDisk]
 HardDrives: list[HardDrive]
@@ -36,10 +35,10 @@ def __getattr__(name:str):
 
     match name:
 
-        case 'HardDrives' | 'PCIeCards':
+        case 'HardDrives':
             items += filter(
-                lambda d: not any(i.ID==d.ID for i in items),
-                getattr(hardware, name[:-1]).search()
+                lambda d: not any(i.SN==d.SN for i in items),
+                HardDrive.search()
             )
 
         case 'Services':
