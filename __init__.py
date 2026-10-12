@@ -1,3 +1,4 @@
+from git.exc import InvalidGitRepositoryError
 from philh_myftp_biz.modules import Repo
 from philh_myftp_biz.terminal import Log
 from philh_myftp_biz.web import URL
@@ -15,7 +16,7 @@ IS_SERVER: bool = (NAME == 'PC-1')
 
 try:
     main_repo = Repo('E:/')
-except FileNotFoundError:
+except (FileNotFoundError, InvalidGitRepositoryError):
     main_repo = None
 
 def pip(*args) -> None:
