@@ -14,9 +14,11 @@ Services: list[Service]
 Modules: list[Module]
 Towers: list[Tower]
 
-_cache = {}
+type Item = (VirtualDisk | HardDrive | PCIeCard | Service | Module | Tower)
 
-def __getattr__(name:str):
+_cache: dict[str, list[Item]] = {}
+
+def __getattr__(name:str) -> list[Item]:
 
     if name in _cache:
         return _cache[name]
@@ -24,7 +26,7 @@ def __getattr__(name:str):
     Log.VERB(f'Collecting Items: {name}')
 
     try:
-        items: list = import_module(
+        items: list[Item] = import_module(
             name = f'.{NAME.replace('-', '')}.{name}', 
             package = __name__
         ).Items.copy()
