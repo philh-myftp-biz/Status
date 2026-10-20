@@ -1,4 +1,4 @@
-from .._py import Tower
+from philh_myftp_biz.pc.hardware import Tower
 
 Items: list[Tower] = [
 

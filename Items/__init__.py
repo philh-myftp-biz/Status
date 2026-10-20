@@ -3,18 +3,16 @@ from .. import install # Run install.py
 from philh_myftp_biz.pc import NAME, Path
 from philh_myftp_biz.terminal import Log
 from importlib import import_module
-from typing import TYPE_CHECKING
 
-from philh_myftp_biz.pc.hardware import HardDrive, PCIeCard, VirtualDisk
+from philh_myftp_biz.pc.hardware import HardDrive, PCIeCard, VirtualDisk, Tower
 from philh_myftp_biz.modules import Module, Service
-if TYPE_CHECKING: from ._py import Tower
 
 VirtualDisks: list[VirtualDisk]
 HardDrives: list[HardDrive]
 PCIeCards: list[PCIeCard]
 Services: list[Service]
 Modules: list[Module]
-Towers: list['Tower']
+Towers: list[Tower]
 
 _cache = {}
 
@@ -47,6 +45,10 @@ def __getattr__(name:str):
 
         case 'Modules':
             items.insert(0, Module('C:/Scripts/'))
+
+        case 'Towers':
+            for t in items:
+                t.HardDrives = __getattr__("HardDrives")
 
     _cache[name] = items
     return items
