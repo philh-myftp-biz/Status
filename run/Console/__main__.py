@@ -1,7 +1,7 @@
 from ... import install # Run install.py
 
 from philh_myftp_biz.terminal.tree import Tree, Printer, run_tree
-from philh_myftp_biz.pc import Path
+from philh_myftp_biz.pc import Path, hardware
 from typing import Callable
 from . import Memory
 
@@ -176,12 +176,16 @@ MANAGEMENT  CONSOLE
             src: list,
             mem: list
         ) -> None:
-
+            dev: hardware.Device
             for dev in mem:
 
-                ACTIVE: str = (' Active ' if dev.Connected else 'Inactive')
+                ACTIVE: str = (' Active, ' if dev.Connected else 'Inactive,')
+                HEALTH: str = dev.HealthStatus.name.title()
 
-                Printer.xitem(src.index(dev), f'[{ACTIVE}] {dev.Name}')
+                Printer.xitem(
+                    src.index(dev), 
+                    f'[{ACTIVE} {HEALTH}] {dev.Name}'
+                )
 
         @staticmethod
         def service() -> None:
