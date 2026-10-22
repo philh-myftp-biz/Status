@@ -1,10 +1,13 @@
-from ..Items import VirtualDisks, HardDrives, PCIeCards, Services, Towers
+from ..Items import VirtualDisks, HardDrives, PCIeCards, Services, Towers, Item
+from philh_myftp_biz.pc.hardware import HealthStatus as HS
 from philh_myftp_biz.terminal import cls, print
 from philh_myftp_biz.time import sleep
+from philh_myftp_biz.db import Color
+from philh_myftp_biz.pc import Path
 
 def LogStatus(
     title: str,
-    items: list
+    items: list[Item]
 ) -> None:
     
     if len(items) > 0:
@@ -18,16 +21,18 @@ def LogStatus(
                 end = ''
             )
 
-            if item.Connected:
-                print(
-                    'Active',
-                    color = 'GREEN'
-                )
-            else:
-                print(
-                    'Inactive',
-                    color = 'RED'
-                )
+            print(
+                item.HealthStatus.name,
+                color = {
+                    HS.UNKNOWN: Color.GRAY,
+                    HS.HEALTHY: Color.GREEN,
+                    HS.WARNING: Color.YELLOW,
+                    HS.NOTGOOD: Color.RED,
+                    HS.MISSING: Color.GRAY,
+                    HS.RUNNING: Color.GREEN,
+                    HS.STOPPED: Color.RED,
+                } [item.HealthStatus],
+            )
 
 while True:
 
