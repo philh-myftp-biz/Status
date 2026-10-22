@@ -178,13 +178,9 @@ MANAGEMENT  CONSOLE
         ) -> None:
             dev: hardware.Device
             for dev in mem:
-
-                ACTIVE: str = (' Active, ' if dev.Connected else 'Inactive,')
-                HEALTH: str = dev.HealthStatus.name.title()
-
                 Printer.xitem(
                     src.index(dev), 
-                    f'[{ACTIVE} {HEALTH}] {dev.Name}'
+                    f'[{dev.HealthStatus.name.title()}] {dev.Name}',
                 )
 
         @staticmethod
