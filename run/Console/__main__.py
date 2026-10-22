@@ -1,7 +1,9 @@
 from ... import install # Run install.py
 
 from philh_myftp_biz.terminal.tree import Tree, Printer, run_tree
-from philh_myftp_biz.pc import Path, hardware
+from philh_myftp_biz.pc.hardware import Device, HealthStatus as HS
+from philh_myftp_biz.db import Color
+from philh_myftp_biz.pc import Path
 from typing import Callable
 from . import Memory
 
@@ -176,11 +178,19 @@ MANAGEMENT  CONSOLE
             src: list,
             mem: list
         ) -> None:
-            dev: hardware.Device
+            dev: Device
             for dev in mem:
                 Printer.xitem(
-                    src.index(dev), 
-                    f'[{dev.HealthStatus.name.title()}] {dev.Name}',
+                    x = src.index(dev),
+                    tag = dev.HealthStatus.name.title(),
+                    color = {
+                        HS.UNKNOWN: Color.DEFAULT,
+                        HS.HEALTHY: Color.GREEN,
+                        HS.WARNING: Color.YELLOW,
+                        HS.NOTGOOD: Color.RED,
+                        HS.MISSING: Color.GRAY,
+                    } [dev.HealthStatus],
+                    val = dev.Name,
                 )
 
         @staticmethod
@@ -193,7 +203,17 @@ MANAGEMENT  CONSOLE
                 RUNNING: str = ('Running'  if serv.running else 'Stopped')
                 ENABLED: str = (' Enabled' if serv.enabled else 'Disabled')
 
-                Printer.xitem(Services.index(serv), f'[{RUNNING}, {ENABLED}] {serv.path}')
+                Printer.xitem(
+                    x = Services.index(serv), 
+                    tag = f'{RUNNING}, {ENABLED}',
+                    color = {
+                        (1, 1): Color.GREEN,
+                        (1, 0): Color.YELLOW,
+                        (0, 1): Color.RED,
+                        (0, 0): Color.GRAY,
+                    } [(int(serv.running), int(serv.enabled))],
+                    val = serv.path,
+                )
 
         @staticmethod
         def module() -> None:
@@ -201,10 +221,12 @@ MANAGEMENT  CONSOLE
             from ...Items import Modules
 
             for mod in Memory.Modules:
-
-                EXISTS: str = (' Exists' if mod.exists else 'Missing')
-
-                Printer.xitem(Modules.index(mod), f'[{EXISTS}] {mod.path}')
+                Printer.xitem(
+                    x = Modules.index(mod),
+                    tag = (' Exists' if mod.exists else 'Missing'),
+                    color = (Color.GREEN if mod.exists else Color.RED),
+                    val = mod.path,
+                )
 
         @staticmethod
         def disk() -> None:
