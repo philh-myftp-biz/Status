@@ -1,4 +1,4 @@
-from philh_myftp_biz.pc.hardware import HealthStatus
+from philh_myftp_biz.pc.hardware import HealthStatus, DiskUsage
 from philh_myftp_biz.web import FirewallException
 from philh_myftp_biz.process import SysTask
 from .. import alert, shutdown, main_repo
@@ -48,20 +48,20 @@ for hdd in Items.HardDrives:
 
             Log.VERB(f'Retiring HDD: {hdd.Name}')
 
-            hdd.Usage = 'Retired'
+            hdd.Usage = DiskUsage.Retired
 
         # Check if disk is retired 
-        elif hdd.Usage == 'Retired':
+        elif hdd.Usage == DiskUsage.Retired:
 
             Log.VERB(f'Reactivating HDD: {hdd.Name}')
 
-            hdd.Usage = 'Auto-Select'
+            hdd.Usage = DiskUsage.AutoSelect
 
     else:
 
         Log.VERB(f'Retiring HDD: {hdd.Name}')
 
-        hdd.Usage = 'Retired'
+        hdd.Usage = DiskUsage.Retired
 
         hdd.FriendlyName = "<Unknown Disk>"
 
