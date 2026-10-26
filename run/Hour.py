@@ -3,7 +3,12 @@ from philh_myftp_biz.terminal import Log
 from philh_myftp_biz.time import now
 from philh_myftp_biz.pc import Path
 from philh_myftp_biz.web import URL
+from . import process_HardDrives
 from .. import Items
+
+# ==================================================
+
+process_HardDrives()
 
 # ==================================================
 # SERVICES
