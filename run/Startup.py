@@ -49,6 +49,7 @@ for hdd in Items.HardDrives:
             Log.VERB(f'Retiring HDD: {hdd.Name}')
 
             hdd.Usage = DiskUsage.Retired
+            hdd.Online = False
 
         # Check if disk is retired 
         elif hdd.Usage == DiskUsage.Retired:
@@ -56,12 +57,14 @@ for hdd in Items.HardDrives:
             Log.VERB(f'Reactivating HDD: {hdd.Name}')
 
             hdd.Usage = DiskUsage.AutoSelect
+            hdd.Online = True
 
     else:
 
         Log.VERB(f'Retiring HDD: {hdd.Name}')
 
         hdd.Usage = DiskUsage.Retired
+        hdd.Online = False
 
         hdd.FriendlyName = "<Unknown Disk>"
 
