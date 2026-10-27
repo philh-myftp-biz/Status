@@ -1,13 +1,7 @@
-from philh_myftp_biz.pc.hardware import HealthStatus, DiskUsage, HardDrive
+from philh_myftp_biz.pc.hardware import DiskUsage, HealthStatus as HS
 from philh_myftp_biz.terminal import Log
 from logger2 import VERBOSE
 from .. import Items
-
-def _retire_disk(hdd: HardDrive):
-    Log.VERB(f'Retiring HDD: {hdd.Name}')
-
-    hdd.Usage = DiskUsage.Retired
-    hdd.Online = False
 
 def process_HardDrives():
 
@@ -24,29 +18,23 @@ def process_HardDrives():
 
         # Check if disk is connected
         if hdd.Connected:
-        
-            # If disk's FriendlyName differs from it's intended name
-            if hdd.FriendlyName != hdd.Name:
 
+            hdd.Online = True
+            hdd.Usage = DiskUsage.AutoSelect
+        
+            # Set FriendlyName
+            if hdd.FriendlyName != hdd.Name:
                 Log.VERB(f'Renaming HDD: "{hdd.FriendlyName}" to "{hdd.Name}"')
-                
                 hdd.FriendlyName = hdd.Name
 
-            # Check if disk is unhealthy
-            if hdd.HealthStatus != HealthStatus.HEALTHY:
-                _retire_disk(hdd)
+            # Retire if Unhealthy
+            if hdd.HealthStatus in [HS.WARNING, HS.NOTGOOD]:
+                Log.VERB(f'Retiring HDD: {hdd.Name}')
+                hdd.Usage = DiskUsage.Retired
+                hdd.Online = False
 
-            # Check if disk is retired 
-            elif hdd.Usage == DiskUsage.Retired:
-
-                Log.VERB(f'Reactivating HDD: {hdd.Name}')
-
-                hdd.Usage = DiskUsage.AutoSelect
-                hdd.Online = True
-
-        else:
-            _retire_disk(hdd)
+        else: # disconnected
             hdd.FriendlyName = "<Unknown Disk>"
 
-    VERBOSE.value = 0
+    VERBOSE.resume()
 
