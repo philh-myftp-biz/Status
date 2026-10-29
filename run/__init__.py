@@ -1,4 +1,4 @@
-from philh_myftp_biz.pc.hardware import DiskUsage, HealthStatus as HS
+from philh_myftp_biz.pc.hardware import HealthStatus as HS
 from philh_myftp_biz.terminal import Log
 from logger2 import VERBOSE
 from .. import Items
@@ -19,8 +19,7 @@ def process_HardDrives():
         # Check if disk is connected
         if hdd.Connected:
 
-            hdd.Online = True
-            hdd.Usage = DiskUsage.AutoSelect
+            hdd.HealthStatus = HS.RUNNING
         
             # Set FriendlyName
             if hdd.FriendlyName != hdd.Name:
@@ -30,8 +29,7 @@ def process_HardDrives():
             # Retire if Unhealthy
             if hdd.HealthStatus in [HS.WARNING, HS.NOTGOOD]:
                 Log.VERB(f'Retiring HDD: {hdd.Name}')
-                hdd.Usage = DiskUsage.Retired
-                hdd.Online = False
+                hdd.HealthStatus = HS.STOPPED
 
         else: # disconnected
             hdd.FriendlyName = "<Unknown Disk>"
