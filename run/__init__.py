@@ -1,14 +1,17 @@
 from philh_myftp_biz.pc.hardware import HealthStatus as HS
+from philh_myftp_biz.pc.hardware import HardDrive
 from philh_myftp_biz.terminal import Log
 from logger2 import VERBOSE
 from .. import Items
 
-def process_HardDrives():
+def process_HardDrives(
+    v: int = 1, 
+    hdds: list[HardDrive] = Items.HardDrives
+):
 
-    VERBOSE.value = 1
+    VERBOSE.value = v
 
-    # Iter through Hard Drives
-    for hdd in Items.HardDrives:
+    for hdd in hdds:
 
         Log.VERB(
             f'Processing Hard Drive:\n'+ \

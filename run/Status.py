@@ -3,52 +3,52 @@ from philh_myftp_biz.pc.hardware import HealthStatus as HS
 from philh_myftp_biz.terminal import cls, print
 from philh_myftp_biz.time import sleep
 from philh_myftp_biz.db import Color
-from philh_myftp_biz.pc import Path
+from . import process_HardDrives
+from itertools import cycle
 
-def LogStatus(
-    title: str,
-    items: list[Item]
-) -> None:
-    
-    if len(items) > 0:
+def LogStatus(items: list[Item]) -> None:
+    for item in items:
 
-        print(f'\n{title}:')
-    
-        for item in items:
+        print(
+            f'   {item.Name.ljust(35, '.')}: ',
+            end = ''
+        )
 
-            print(
-                f'   {item.Name.ljust(35, '.')}: ',
-                end = ''
-            )
+        print(
+            item.HealthStatus.name,
+            color = {
+                HS.UNKNOWN: Color.GRAY,
+                HS.HEALTHY: Color.GREEN,
+                HS.WARNING: Color.YELLOW,
+                HS.NOTGOOD: Color.RED,
+                HS.MISSING: Color.GRAY,
+                HS.RUNNING: Color.GREEN,
+                HS.STOPPED: Color.RED,
+            } [item.HealthStatus],
+        )
 
-            print(
-                item.HealthStatus.name,
-                color = {
-                    HS.UNKNOWN: Color.GRAY,
-                    HS.HEALTHY: Color.GREEN,
-                    HS.WARNING: Color.YELLOW,
-                    HS.NOTGOOD: Color.RED,
-                    HS.MISSING: Color.GRAY,
-                    HS.RUNNING: Color.GREEN,
-                    HS.STOPPED: Color.RED,
-                } [item.HealthStatus],
-            )
-
-while True:
+for i in cycle(range(5)):
 
     cls()
 
     print("\n|-----------------------------------| Server Status |-----------------------------------|\n")    
 
-    LogStatus('Hard Drives', HardDrives)
+    print('\nHard Drives:')
+    for hdd in HardDrives:
+        i or process_HardDrives(0, [hdd])
+        LogStatus([hdd])
 
-    LogStatus('PCIe Cards', PCIeCards)
+    print('\nPCIe Cards:')
+    LogStatus(PCIeCards)
 
-    LogStatus('Virtual Disks', VirtualDisks)
+    print('\nVirtual Disks:')
+    LogStatus(VirtualDisks)
 
-    LogStatus('Towers', Towers)
+    print('\nTowers:')
+    LogStatus(Towers)
 
-    LogStatus('Services', Services)
+    print('\nServices:')
+    LogStatus(Services)
 
     print("\n|---------------------------------------------------------------------------------------|\n")
 
