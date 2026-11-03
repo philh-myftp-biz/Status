@@ -14,8 +14,9 @@ def LogStatus(items: list[Item]) -> None:
             end = ''
         )
 
+        hs = item.HealthStatus
         print(
-            item.HealthStatus.name,
+            hs.name,
             color = {
                 HS.UNKNOWN: Color.GRAY,
                 HS.HEALTHY: Color.GREEN,
@@ -24,7 +25,7 @@ def LogStatus(items: list[Item]) -> None:
                 HS.MISSING: Color.GRAY,
                 HS.RUNNING: Color.GREEN,
                 HS.STOPPED: Color.RED,
-            } [item.HealthStatus],
+            } [hs],
         )
 
 for i in cycle(range(5)):
