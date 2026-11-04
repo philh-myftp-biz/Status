@@ -1,10 +1,11 @@
 from ... import install # Run install.py
 
 from philh_myftp_biz.terminal.tree import Tree, Printer, run_tree
-from philh_myftp_biz.pc.hardware import Device, HealthStatus as HS
+from philh_myftp_biz.pc.hardware import Device
 from philh_myftp_biz.db import Color
 from philh_myftp_biz.pc import Path
 from typing import Callable
+from .. import HS_Colors
 from . import Memory
 
 class TreeImpl(Tree):
@@ -183,13 +184,7 @@ MANAGEMENT  CONSOLE
                 Printer.xitem(
                     x = src.index(dev),
                     tag = dev.HealthStatus.name.title(),
-                    color = {
-                        HS.UNKNOWN: Color.DEFAULT,
-                        HS.HEALTHY: Color.GREEN,
-                        HS.WARNING: Color.YELLOW,
-                        HS.NOTGOOD: Color.RED,
-                        HS.MISSING: Color.GRAY,
-                    } [dev.HealthStatus],
+                    color = HS_Colors[dev.HealthStatus],
                     val = dev.Name,
                 )
 

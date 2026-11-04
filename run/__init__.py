@@ -1,6 +1,7 @@
 from philh_myftp_biz.pc.hardware import HealthStatus as HS
 from philh_myftp_biz.pc.hardware import HardDrive
 from philh_myftp_biz.terminal import Log
+from philh_myftp_biz.db import Color
 from logger2 import VERBOSE
 from .. import Items
 
@@ -38,4 +39,14 @@ def process_HardDrives(
             hdd.FriendlyName = "<Unknown Disk>"
 
     VERBOSE.resume()
+
+HS_Colors = {
+    HS.UNKNOWN: Color.GRAY,
+    HS.HEALTHY: Color.GREEN,
+    HS.WARNING: Color.YELLOW,
+    HS.NOTGOOD: Color.RED,
+    HS.MISSING: Color.GRAY,
+    HS.RUNNING: Color.GREEN,
+    HS.STOPPED: Color.RED,
+}
 

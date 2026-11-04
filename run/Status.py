@@ -1,9 +1,8 @@
 from ..Items import VirtualDisks, HardDrives, PCIeCards, Services, Towers, Item
 from philh_myftp_biz.pc.hardware import HealthStatus as HS
 from philh_myftp_biz.terminal import cls, print
+from . import process_HardDrives, HS_Colors
 from philh_myftp_biz.time import sleep
-from philh_myftp_biz.db import Color
-from . import process_HardDrives
 from itertools import cycle
 
 def LogStatus(items: list[Item]) -> None:
@@ -17,15 +16,7 @@ def LogStatus(items: list[Item]) -> None:
         hs = item.HealthStatus
         print(
             hs.name,
-            color = {
-                HS.UNKNOWN: Color.GRAY,
-                HS.HEALTHY: Color.GREEN,
-                HS.WARNING: Color.YELLOW,
-                HS.NOTGOOD: Color.RED,
-                HS.MISSING: Color.GRAY,
-                HS.RUNNING: Color.GREEN,
-                HS.STOPPED: Color.RED,
-            } [hs],
+            color = HS_Colors[hs],
         )
 
 for i in cycle(range(5)):
